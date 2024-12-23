@@ -8,29 +8,40 @@ const Home = () => {
   const [email, setEmail] = useState<string>('');
   const [message, setMessage] = useState<string>('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  
+
     if (!email) {
       setMessage('Please enter a valid email.');
       return;
     }
-  
+
     try {
-      const { data } = await supabase.from('subscribers').select('email').eq('email', email);
-  
-      if (data.length > 0) {
-        setMessage('You are already with us ! Les goo 🚀');
+      const { data, error: fetchError } = await supabase
+        .from('subscribers')
+        .select('email')
+        .eq('email', email);
+
+      if (fetchError) {
+        setMessage('Error checking email. Please try again.');
+        console.error('Supabase Fetch Error:', fetchError);
         return;
       }
-  
-      const { error } = await supabase.from('subscribers').insert({ email });
-  
-      if (error) {
+
+      if (data && data.length > 0) {
+        setMessage('You are already with us! Les goo 🚀');
+        return;
+      }
+
+      const { error: insertError } = await supabase
+        .from('subscribers')
+        .insert({ email });
+
+      if (insertError) {
         setMessage('Error saving email. Please try again.');
-        console.error('Supabase Error:', error);
+        console.error('Supabase Insert Error:', insertError);
       } else {
-        setMessage('You will be the first to know when we launch ! 🚀');
+        setMessage('You will be the first to know when we launch! 🚀');
         setEmail('');
       }
     } catch (err) {
@@ -38,7 +49,6 @@ const Home = () => {
       setMessage('An unexpected error occurred.');
     }
   };
-  
 
   return (
     <div
@@ -46,10 +56,13 @@ const Home = () => {
       style={{ backgroundImage: 'url(/aa.avif)' }}
     >
       <div className="absolute top-4 right-4">
-  <Link href="/features" className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition shadow-md" >
-      Why Stash Stash tho?
-  </Link>
-</div>
+        <Link
+          href="/features"
+          className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition shadow-md"
+        >
+          Why Stash Stash tho?
+        </Link>
+      </div>
 
       <div className="bg-white bg-opacity-75 shadow-lg rounded-lg p-8 max-w-md w-full">
         <h1 className="text-4xl font-semibold text-center text-indigo-900 mb-6 tracking-wide">
@@ -58,7 +71,7 @@ const Home = () => {
         <h1 className="text-2xl font-semibold text-center text-indigo-900 mb-6 tracking-wide">
           Better Ideas, Every Day
         </h1>
-        <p className="text-center text-indigo-700 mb-8">Join now to not miss out !</p>
+        <p className="text-center text-indigo-700 mb-8">Join now to not miss out!</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="email"
