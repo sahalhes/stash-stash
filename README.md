@@ -2,7 +2,7 @@
 
 ## Month 1: Foundation & Core Features  
 ### Week 1: Project Setup  
-- [ ] Set up Next.js project with folder structure and integrate ShadCN.  
+- [X] Set up Next.js project with folder structure and integrate ShadCN.  
 - [ ] Set up Flutter project with clean architecture and basic navigation.  
 - [X] Finalize MVP features for both platforms.  
 - [ ] Design the database schema .  
