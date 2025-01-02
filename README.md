@@ -5,7 +5,7 @@
 - [X] Set up Next.js project with folder structure and integrate ShadCN.  
 - [ ] Set up Flutter project with clean architecture and basic navigation.  
 - [X] Finalize MVP features for both platforms.  
-- [ ] Design the database schema .  
+- [X] Design the database schema .  
 
 ### Week 2: User Authentication & Onboarding  
 - [ ] Implement authentication in Next.js (NextAuth.js or similar).  
