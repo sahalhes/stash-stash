@@ -1,94 +1,80 @@
 'use client';
 
-import supabase from '@/lib/supabase';
-import Link from 'next/link';
 import { useState } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const Home = () => {
-  const [email, setEmail] = useState<string>('');
-  const [message, setMessage] = useState<string>('');
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!email) {
-      setMessage('Please enter a valid email.');
-      return;
-    }
-
-    try {
-      const { data, error: fetchError } = await supabase
-        .from('subscribers')
-        .select('email')
-        .eq('email', email);
-
-      if (fetchError) {
-        setMessage('Error checking email. Please try again.');
-        console.error('Supabase Fetch Error:', fetchError);
-        return;
-      }
-
-      if (data && data.length > 0) {
-        setMessage('You are already with us! Les goo 🚀');
-        return;
-      }
-
-      const { error: insertError } = await supabase
-        .from('subscribers')
-        .insert({ email });
-
-      if (insertError) {
-        setMessage('Error saving email. Please try again.');
-        console.error('Supabase Insert Error:', insertError);
-      } else {
-        setMessage('You will be the first to know when we launch! 🚀');
-        setEmail('');
-      }
-    } catch (err) {
-      console.error('Error submitting email:', err);
-      setMessage('An unexpected error occurred.');
-    }
-  };
+  // ... existing state management code can be removed since we're rebuilding ...
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center"
-      style={{ backgroundImage: 'url(/aa.avif)' }}
-    >
-      <div className="absolute top-4 right-4">
-        <Link
-          href="/features"
-          className="px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition shadow-md"
-        >
-          Why Stash Stash tho?
-        </Link>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white">
+      {/* Header Navigation */}
+      <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-sm border-b z-50">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/" className="text-2xl font-bold text-indigo-600">
+            Stash Stash
+          </Link>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost">Login</Button>
+            <Button>Sign Up</Button>
+          </div>
+        </div>
+      </nav>
 
-      <div className="bg-white bg-opacity-75 shadow-lg rounded-lg p-8 max-w-md w-full">
-        <h1 className="text-4xl font-semibold text-center text-indigo-900 mb-6 tracking-wide">
-          Stash Stash
-        </h1>
-        <h1 className="text-2xl font-semibold text-center text-indigo-900 mb-6 tracking-wide">
-          Better Ideas, Every Day
-        </h1>
-        <p className="text-center text-indigo-700 mb-8">Join now to not miss out!</p>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-6 py-3 border border-indigo-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black"
+      {/* Main Content */}
+      <main className="container mx-auto px-4 pt-24">
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            Store and Share Your Best Ideas
+          </h1>
+          <p className="text-xl text-gray-600 mb-8">
+            Organize your thoughts, discover insights, and connect with like-minded people
+          </p>
+        </div>
+
+        {/* Content Tabs */}
+        <Card className="mb-8">
+          <CardHeader>
+            <Tabs defaultValue="trending">
+              <TabsList>
+                <TabsTrigger value="trending">Trending</TabsTrigger>
+                <TabsTrigger value="recent">Recent</TabsTrigger>
+                <TabsTrigger value="following">Following</TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </CardHeader>
+          <CardContent>
+            {/* Placeholder for stash content */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[1, 2, 3].map((item) => (
+                <Card key={item} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-4">
+                    <div className="h-40 bg-gray-100 rounded-md mb-4" />
+                    <h3 className="font-semibold mb-2">Example Stash Title</h3>
+                    <p className="text-sm text-gray-600">
+                      A brief preview of the stash content would go here...
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Search Section */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <Input 
+            type="search" 
+            placeholder="Search stashes..." 
+            className="w-full"
           />
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition"
-          >
-            Update me 😃
-          </button>
-        </form>
-        {message && <p className="mt-4 text-center text-green-600">{message}</p>}
-      </div>
+        </div>
+      </main>
     </div>
   );
 };
