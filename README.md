@@ -9,6 +9,7 @@
 - [X] Design the database schema .  
 
 ### Week 2: User Authentication & Onboarding  
+- [X] Implement authentication in Next.js (NextAuth.js or similar).
 - [ ] Design onboarding flow for the web app.
 
 ### Week 3: Core Content Features
