@@ -5,7 +5,7 @@
 - [X] Finalize MVP features for both platforms.  
 - [X] Design the database schema . 
 - [ ] Implement authentication in Next.js (NextAuth.js or similar).  
-- [ ] Implement authentication in Flutter (Firebase Authentication or API backend).  
 - [ ] Design onboarding flows for web and mobile apps.  
-
+- [ ] Build backend APIs for content creation and retrieval.
+- [ ] Implement content creation with a rich-text editor.
 
