@@ -10,7 +10,7 @@
 
 ### Week 2: User Authentication & Onboarding  
 - [X] Implement authentication in Next.js (NextAuth.js or similar).
-- [ ] Design onboarding flow for the web app.
+- [X] Design onboarding flow for the web app.
 
 ### Week 3: Core Content Features
 - [ ] Build backend APIs for content creation and retrieval.
