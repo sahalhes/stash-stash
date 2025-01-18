@@ -1,11 +1,14 @@
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import { SignInButton, SignedOut } from "@clerk/nextjs";
 import { ArrowRight } from "lucide-react";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="min-h-screen">
       <SignedOut>
         <div className="max-w-7xl mx-auto px-4 py-12">
+          {/* Title Section with Logo */}
+    
+
           {/* Hero Section */}
           <div className="text-center mb-16">
             <h1 className="text-5xl font-bold mb-6">
@@ -79,12 +82,6 @@ export default function Home() {
           </div>
         </div>
       </SignedOut>
-
-      <SignedIn>
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          {/* Personalized Feed will go here */}
-        </div>
-      </SignedIn>
     </div>
   );
 }

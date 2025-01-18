@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { UserButton } from "@clerk/nextjs";
 import Logo from './Logo';
-import { Home, Bell, Bookmark, Edit } from 'lucide-react';
+import { Home, Bell, Bookmark, Edit, User } from 'lucide-react';
 
 export default function Navigation() {
   return (
@@ -12,23 +12,26 @@ export default function Navigation() {
         <Logo />
       </Link>
 
-      <div className="flex flex-col items-center gap-6">
-        <Link href="/" className="text-gray-700 hover:text-black">
+      <div className="flex flex-col items-center gap-6 flex-1">
+        <Link href="/feed" className="text-gray-700 hover:text-black">
           <Home className="w-6 h-6" />
         </Link>
         <Link href="/notifications" className="text-gray-700 hover:text-black">
           <Bell className="w-6 h-6" />
         </Link>
-        <Link href="/bookmarks" className="text-gray-700 hover:text-black">
+        <Link href="/saved" className="text-gray-700 hover:text-black">
           <Bookmark className="w-6 h-6" />
         </Link>
         <Link href="/write" className="text-gray-700 hover:text-black">
           <Edit className="w-6 h-6" />
         </Link>
-      </div>
-
-      <div className="mt-auto">
-        <UserButton afterSignOutUrl="/" />
+        <Link href="/you" className="text-gray-700 hover:text-black">
+          <User className="w-6 h-6" />
+        </Link>
+        
+        <div className="mt-1">
+          <UserButton afterSignOutUrl="/" />
+        </div>
       </div>
     </nav>
   );
