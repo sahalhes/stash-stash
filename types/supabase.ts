@@ -104,6 +104,60 @@ export interface Database {
           created_at?: string
         }
       }
+      tags: {
+        Row: {
+          id: string
+          name: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          created_at?: string
+        }
+      }
+      stash_tags: {
+        Row: {
+          id: string
+          stash_id: string
+          tag_id: string
+        }
+        Insert: {
+          id?: string
+          stash_id: string
+          tag_id: string
+        }
+        Update: {
+          id?: string
+          stash_id?: string
+          tag_id?: string
+        }
+      }
+      shared_stashes: {
+        Row: {
+          id: string
+          stash_id: string
+          shared_with_user_id: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          stash_id: string
+          shared_with_user_id: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          stash_id?: string
+          shared_with_user_id?: string
+          created_at?: string
+        }
+      }
     }
   }
 } 
