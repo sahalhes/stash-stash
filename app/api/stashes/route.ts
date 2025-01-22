@@ -1,6 +1,8 @@
 import { createClient } from '@supabase/supabase-js'
+import { NextResponse } from 'next/server'
+import { auth } from '@clerk/nextjs/server'
+import { currentUser } from '@clerk/nextjs/server'
 import { z } from 'zod'
-import { auth, clerkClient } from '@clerk/nextjs/server'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -33,7 +35,10 @@ export async function POST(request: Request) {
 
     if (!existingUser) {
       // Get Clerk user data
-      const clerkUser = await clerkClient.users.getUser(userId)
+      const clerkUser = await currentUser()
+      if (!clerkUser) {
+        return NextResponse.json({ error: 'User not found' }, { status: 404 })
+      }
       
       // Create user in Supabase
       const { error: userError } = await supabase
