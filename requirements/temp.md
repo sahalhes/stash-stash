@@ -1,4 +1,3 @@
-### Prompt for Cursor AI Editor
 
 #### **Objective**
 Maintain the current project structure as it is, but add support for authentication in the following way:
